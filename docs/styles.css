@@ -235,13 +235,19 @@ h1 {
   cursor: pointer;
 }
 
-.card-trigger {
+.preview-zoom,
+.card-trigger,
+.image-zoom {
   width: 100%;
   display: block;
   padding: 0;
   border: 0;
   background: transparent;
   text-align: left;
+  cursor: zoom-in;
+}
+
+.card-trigger {
   cursor: pointer;
 }
 
@@ -273,11 +279,14 @@ h1 {
   transition: transform 160ms ease;
 }
 
-.card-trigger:hover .card-image {
+.preview-zoom:hover .card-image,
+.image-zoom:hover img {
   transform: scale(1.015);
 }
 
+.preview-zoom:focus-visible,
 .card-trigger:focus-visible,
+.image-zoom:focus-visible,
 .ghost-button:focus-visible,
 .icon-button:focus-visible,
 .result-link:focus-visible {
@@ -493,6 +502,50 @@ h1 {
   border: 1px solid var(--border-divider);
   border-radius: var(--radius-sm);
   background: var(--bg-app);
+  transition: transform 160ms ease;
+}
+
+.lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 24px;
+  overflow: auto;
+  border: 0;
+  background: rgba(17, 24, 39, 0.92);
+}
+
+.lightbox::backdrop {
+  background: rgba(17, 24, 39, 0.88);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  color: #fff;
+  background: rgba(17, 24, 39, 0.45);
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lightbox img {
+  display: block;
+  width: auto;
+  max-width: calc(100vw - 48px);
+  height: auto;
+  max-height: calc(100dvh - 48px);
+  margin: auto;
+  object-fit: contain;
+  cursor: zoom-out;
 }
 
 .image-fallback {

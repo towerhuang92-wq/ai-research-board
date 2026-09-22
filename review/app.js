@@ -21,9 +21,15 @@ const compareHint = document.querySelector("#compare-hint");
 const compareDialog = document.querySelector("#compare-dialog");
 const compareClose = document.querySelector("#compare-close");
 const compareBody = document.querySelector("#compare-body");
+const lightbox = document.querySelector("#lightbox");
+const lightboxImage = document.querySelector("#lightbox-image");
+const lightboxClose = document.querySelector("#lightbox-close");
+const dialogImageZoom = document.querySelector("#dialog-image-zoom");
 
 let records = [];
 let lastTrigger = null;
+let lastLightboxTrigger = null;
+let lightboxSrc = "";
 const selectedIds = new Set();
 
 const statusLabels = {
@@ -126,6 +132,7 @@ function renderCards() {
   records.forEach((record, index) => {
     const card = cardTemplate.content.firstElementChild.cloneNode(true);
     const trigger = card.querySelector(".card-trigger");
+    const previewZoom = card.querySelector(".preview-zoom");
     const image = card.querySelector(".card-image");
     const fallback = card.querySelector(".preview-fallback");
     const badge = card.querySelector(".status-badge");
@@ -144,6 +151,8 @@ function renderCards() {
 
     setImageWithFallback(image, fallback, record.preview, `${record.title}的生成结果预览`);
 
+    previewZoom.setAttribute("aria-label", `放大查看${record.title}`);
+    previewZoom.addEventListener("click", () => openLightbox(record.preview, `${record.title}的完整预览`, previewZoom));
     trigger.setAttribute("aria-label", `查看${record.title}的生成详情`);
     trigger.addEventListener("click", () => openDialog(record, trigger));
     fragment.appendChild(card);
@@ -244,14 +253,33 @@ function openDialog(record, trigger) {
   closeButton.focus();
 }
 
+function openLightbox(src, alt, trigger) {
+  if (!src) return;
+  lastLightboxTrigger = trigger ?? null;
+  lightboxSrc = src;
+  lightboxImage.alt = alt;
+  lightboxImage.src = src;
+  lightbox.showModal();
+  lightboxClose.focus();
+}
+
+function closeLightbox() {
+  lightbox.close();
+}
+
 function renderComparePane(record) {
   const pane = createElement("section", "compare-pane");
   const preview = createElement("div", "compare-preview");
+  const zoom = createElement("button", "image-zoom");
+  zoom.type = "button";
+  zoom.setAttribute("aria-label", `放大查看${record.title}`);
   const image = createElement("img");
   const fallback = createElement("div", "image-fallback", "暂无可用预览");
   fallback.hidden = true;
   setImageWithFallback(image, fallback, record.preview, `${record.title}的对比预览`);
-  preview.append(image, fallback);
+  zoom.addEventListener("click", () => openLightbox(record.preview, `${record.title}的完整预览`, zoom));
+  zoom.appendChild(image);
+  preview.append(zoom, fallback);
 
   const meta = createElement("dl", "metadata-list");
   appendMetadata(meta, "标题", record.title);
@@ -287,6 +315,11 @@ function closeCompare() {
 closeButton.addEventListener("click", closeDialog);
 compareClose.addEventListener("click", closeCompare);
 compareButton.addEventListener("click", openCompare);
+lightboxClose.addEventListener("click", closeLightbox);
+dialogImageZoom.addEventListener("click", () => {
+  if (!lightboxSrc && !dialogImage.src) return;
+  openLightbox(dialogImage.getAttribute("src"), dialogImage.alt, dialogImageZoom);
+});
 
 dialog.addEventListener("click", (event) => {
   if (event.target === dialog) closeDialog();
@@ -296,8 +329,17 @@ compareDialog.addEventListener("click", (event) => {
   if (event.target === compareDialog) closeCompare();
 });
 
+lightbox.addEventListener("click", (event) => {
+  if (event.target === lightbox || event.target === lightboxImage) closeLightbox();
+});
+
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
+  if (lightbox.open) {
+    event.preventDefault();
+    closeLightbox();
+    return;
+  }
   if (compareDialog.open) {
     event.preventDefault();
     closeCompare();
@@ -311,6 +353,10 @@ document.addEventListener("keydown", (event) => {
 
 dialog.addEventListener("close", () => {
   lastTrigger?.focus();
+});
+
+lightbox.addEventListener("close", () => {
+  lastLightboxTrigger?.focus();
 });
 
 async function loadRecords() {
