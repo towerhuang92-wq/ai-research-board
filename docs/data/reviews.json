@@ -1,0 +1,387 @@
+{
+  "version": 1,
+  "methods": [
+    {
+      "id": "prompt-to-layout",
+      "label": "需求直出",
+      "description": "只给一句话功能需求，从空白结构生成卡片。用来看理解力和默认骨架会不会走偏。"
+    },
+    {
+      "id": "reference-guided",
+      "label": "参考图引导",
+      "description": "用户丢竞品或参考截图，保留信息层级，不描摹像素。用来对比结构还原。"
+    },
+    {
+      "id": "standard-locked",
+      "label": "标准卡约束",
+      "description": "design.md 锁定后再生图：360 宽、12/16 字、组条语义不变。只换功能，不换壳。"
+    },
+    {
+      "id": "decision-revise",
+      "label": "决策改版",
+      "description": "按投资决策路径改展示：先答要不要动、动谁。表不是默认，读法落到动作。"
+    }
+  ],
+  "records": [
+    {
+      "id": "rating-shell",
+      "title": "技术评级 · 带窗铬的第一版",
+      "generatedAt": "2026-09-20T11:42:00+08:00",
+      "method": "需求直出",
+      "status": "rejected",
+      "outputType": "完整桌面窗",
+      "platform": "Desktop",
+      "preview": "./assets/rating-shell.png",
+      "summary": "按 design.md 第一次出稿：左轨、顶栏、底栏、Trade 都在。功能数据跟参考图一致，但壳把卡片压成栏目页。",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "我想试下依据这个 design.md，生成的界面是什么样的。对照参考图，功能数据信息保持一致。"
+        },
+        {
+          "role": "assistant",
+          "content": "用白肤壳做了技术评级页。后来用户指出壳不该锁死，从 design.md 去掉了窗铬限制。"
+        }
+      ],
+      "implementation": {
+        "summary": "需求直出默认套了 BD/MooPC 完整窗，功能面被壳带着走。",
+        "steps": [
+          "按 design.md 十层回填色 / 字 / 距。",
+          "装配左轨、顶栏、底栏和 Trade。",
+          "评级数据对齐参考图：中性 7/10/9。"
+        ]
+      },
+      "constraints": [
+        "功能数据与参考图一致",
+        "浅色白肤 token",
+        "当时未禁止完整窗"
+      ],
+      "checks": [
+        "价 315.334 −0.28% 在",
+        "中性票数在",
+        "壳后来被否决，不再作为标准"
+      ],
+      "links": []
+    },
+    {
+      "id": "rating-gauge-cn",
+      "title": "技术评级 · 半圆仪中文卡",
+      "generatedAt": "2026-09-20T14:11:00+08:00",
+      "method": "参考图引导",
+      "status": "refined",
+      "outputType": "功能面卡片",
+      "platform": "Desktop",
+      "preview": "./assets/rating-gauge-cn.png",
+      "summary": "去掉壳之后补上半圆仪。中性坐进碗里，卖中买构成条出现。还是中文，周期是灰胶囊，信息层级仍在调。",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "为啥不能画出来半圆仪，功能里需要有一些可视化的图表降低用户认知成本。"
+        },
+        {
+          "role": "assistant",
+          "content": "加了 180° 仪和构成条。后续又改过刻度、环带、字号和灰块。"
+        }
+      ],
+      "implementation": {
+        "summary": "参考图要仪，不描摹竞品像素，自绘半圆。",
+        "steps": [
+          "去掉左轨顶栏底栏。",
+          "半圆仪 + Neutral 进碗。",
+          "卖 / 中 / 买比例条贴在仪下。"
+        ]
+      },
+      "constraints": [
+        "不要完整窗",
+        "必须有仪",
+        "数据仍是 7/10/9"
+      ],
+      "checks": [
+        "仪在卡内",
+        "中性与共识弱成组",
+        "周期选中态后来改成墨色胶囊"
+      ],
+      "links": []
+    },
+    {
+      "id": "rating-locked",
+      "title": "技术评级 · 锁定标准卡",
+      "generatedAt": "2026-09-20T17:52:00+08:00",
+      "method": "标准卡约束",
+      "status": "completed",
+      "outputType": "功能面卡片",
+      "platform": "Desktop",
+      "preview": "./assets/rating-locked.png",
+      "summary": "用户点头锁定：360 宽、英文、12/16、Oscillators Neutral / Moving averages Buy、左高亮右灰。这是后续生图的唯一样式源。",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "这个设计稿已经符合我的要求了，基于这套表现，你帮我沉淀成 design.md 以及后续生图的 agent。"
+        },
+        {
+          "role": "assistant",
+          "content": "扫读、字号、组名、组条写进 design.md 和 gen-from-design。未获点头不得改。"
+        }
+      ],
+      "implementation": {
+        "summary": "把已确认布局落成标准卡，而不是再发明一套。",
+        "steps": [
+          "界面改英文，文案缩短。",
+          "组名改成 Oscillators / Moving averages。",
+          "组条跟组结论，不按子行切色。"
+        ]
+      },
+      "constraints": [
+        "卡宽 360",
+        "只有结论词 16 加粗",
+        "禁止 Mom / Trend / Mix"
+      ],
+      "checks": [
+        "1D 墨色胶囊",
+        "Neutral 与 Weak 在碗里",
+        "SMA50 Sell 与组结论 Buy 可以不同向"
+      ],
+      "links": []
+    },
+    {
+      "id": "board-three",
+      "title": "看板 · Rating + Volume + Analyst",
+      "generatedAt": "2026-09-21T13:50:00+08:00",
+      "method": "参考图引导",
+      "status": "completed",
+      "outputType": "多卡看板",
+      "platform": "Desktop",
+      "preview": "./assets/board-three.png",
+      "summary": "用锁定标准卡往右加卡。Volume 是价档剖面，Analyst 用目标价直方图，不再复制半圆仪。",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "这个卡片完成了，我要在右侧新增一个卡片，测试这套 agent。再做分析师评级，可以用其他可视化。"
+        },
+        {
+          "role": "assistant",
+          "content": "Volume 用 POC / VA 剖面。Analyst 用 12M 目标分布，避免第二只半圆仪。"
+        }
+      ],
+      "implementation": {
+        "summary": "同一壳，图按数据关系选题。",
+        "steps": [
+          "Volume：8 档 × 行高 16，避免字贴字。",
+          "Analyst：直方图 + 现价 / 均值标记。",
+          "卡宽保持 360，先横滑后改瀑布流。"
+        ]
+      },
+      "constraints": [
+        "不改锁定评级卡",
+        "不复用半圆仪",
+        "图内字行高 ≥ 16"
+      ],
+      "checks": [
+        "三张卡都是 360",
+        "Volume 档距可读",
+        "Analyst 不是半圆仪"
+      ],
+      "links": []
+    },
+    {
+      "id": "risk-table",
+      "title": "组合风险 · 第一版对照表",
+      "generatedAt": "2026-09-21T16:04:00+08:00",
+      "method": "需求直出",
+      "status": "rejected",
+      "outputType": "功能面卡片",
+      "platform": "Desktop",
+      "preview": "./assets/risk-table.png",
+      "summary": "一句话要 CVaR、VaR、分散化、持仓贡献。Agent 当时默认「证明区一张表」，副文写成 95th / Div / Tail，Pair 和 Worst 又拆成表。",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "新增一个卡片，查看投资组合风险：最差 5% 平均亏损、VaR、分散化效果，以及各持仓贡献。"
+        },
+        {
+          "role": "assistant",
+          "content": "套了评级卡的表骨架。用户随后指出展示太单一，竞品用 Effective bets 更好读。"
+        }
+      ],
+      "implementation": {
+        "summary": "需求直出被「对照表只留一张」纪律带偏。",
+        "steps": [
+          "结论写成 −2.4% + 95th。",
+          "持仓 Name / Wt / Tail 表。",
+          "相关对和最差日再开表模块。"
+        ]
+      },
+      "constraints": [
+        "卡宽 360",
+        "英文",
+        "当时纪律默认用表"
+      ],
+      "checks": [
+        "数字在，但口径难读",
+        "无法一眼看出该减谁",
+        "已被否决，只作对比基线"
+      ],
+      "links": []
+    },
+    {
+      "id": "risk-plain",
+      "title": "组合风险 · 竞品口径对照表",
+      "generatedAt": "2026-09-21T16:15:00+08:00",
+      "method": "参考图引导",
+      "status": "refined",
+      "outputType": "功能面卡片",
+      "platform": "Desktop",
+      "preview": "./assets/risk-plain.png",
+      "summary": "对齐竞品：−4.0% Worst 5% avg、Effective bets 2.6/5、等权 Loss share。口径对了，持仓仍是表。",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "竞品生成的是这样的，你看下 agent 要怎么调整，能达到甚至超越竞品。"
+        },
+        {
+          "role": "assistant",
+          "content": "副文改白话，尺子改成 Effective bets。表列名写全称，过权才标红。读法读完不截断。"
+        }
+      ],
+      "implementation": {
+        "summary": "参考图改口径，还没有改掉「表」这个形式。",
+        "steps": [
+          "CVaR −4.0%，VaR 贴在副文。",
+          "Effective bets 组条。",
+          "等权 20%，Loss share 过权标红。"
+        ]
+      },
+      "constraints": [
+        "框架橙不上条",
+        "同一事实只一次",
+        "读法禁止 …"
+      ],
+      "checks": [
+        "比第一版好读",
+        "仍看不出刻度越过关系",
+        "作为表 → 轨的对比左条"
+      ],
+      "links": []
+    },
+    {
+      "id": "risk-tracks",
+      "title": "组合风险 · 过权轨",
+      "generatedAt": "2026-09-21T16:48:00+08:00",
+      "method": "决策改版",
+      "status": "completed",
+      "outputType": "功能面卡片",
+      "platform": "Desktop",
+      "preview": "./assets/risk-tracks.png",
+      "summary": "填充是亏损贡献，竖刻是等权。越过刻度的仓就是该减的。读法：Trim NVDA first.",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "你需要从用户视角判断哪种展示更优。要符合投资决策路径，并对交易转化有帮助。"
+        },
+        {
+          "role": "assistant",
+          "content": "先答要不要动、动谁。持仓表改成水平轨，不再默认用表。"
+        }
+      ],
+      "implementation": {
+        "summary": "决策路径改形式：对照列变成轨+刻度。",
+        "steps": [
+          "保留 −4.0% 和 Effective bets。",
+          "Loss share 做填充，Weight 做刻度。",
+          "读法落到 Trim NVDA first。"
+        ]
+      },
+      "constraints": [
+        "权重不另写 20%",
+        "过权才跌色",
+        "Pair / Worst 收成行"
+      ],
+      "checks": [
+        "NVDA / AAPL / BTC 越过刻度",
+        "MSFT / GOLD 在刻度左侧",
+        "动作句可扫到"
+      ],
+      "links": []
+    },
+    {
+      "id": "news-watch",
+      "title": "新闻情绪 · Watch 先行",
+      "generatedAt": "2026-09-21T16:49:00+08:00",
+      "method": "决策改版",
+      "status": "completed",
+      "outputType": "功能面卡片",
+      "platform": "Desktop",
+      "preview": "./assets/news-watch.png",
+      "summary": "Mixed + 占比组条之后，高影响事件单独成 Watch，其余新闻垫后。读法：Fade the delay. AI still bids.",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "查看 AAPL 最新新闻和市场情绪，包括正负中占比、高影响事件，以及 AI 总结。"
+        },
+        {
+          "role": "assistant",
+          "content": "第一版做成四列表。决策改版后改成故事列表，Watch 先于归档新闻。"
+        }
+      ],
+      "implementation": {
+        "summary": "时间流不用表。能转化的信息先于归档。",
+        "steps": [
+          "占比用 Pos / Neu / Neg 组条。",
+          "iPhone delay、on-device AI 进 Watch。",
+          "其余三条作背景，读法落到动作。"
+        ]
+      },
+      "constraints": [
+        "不复制半圆仪",
+        "Watch 组不再逐条写 High",
+        "读法必须读完"
+      ],
+      "checks": [
+        "Watch 在其余新闻之上",
+        "情绪颜色可扫",
+        "不是四列表"
+      ],
+      "links": []
+    },
+    {
+      "id": "board-waterfall",
+      "title": "看板 · 纵向瀑布流",
+      "generatedAt": "2026-09-21T16:55:00+08:00",
+      "method": "标准卡约束",
+      "status": "completed",
+      "outputType": "多卡看板",
+      "platform": "Desktop",
+      "preview": "./assets/board-waterfall.png",
+      "summary": "六张 360 卡不再横滑。窄屏 1 列，768 起 2 列，1144 起 3 列。短卡顶到上一张下面。",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "横滑不太方便看，你做下响应式适配，纵向瀑布流。"
+        },
+        {
+          "role": "assistant",
+          "content": "CSS 多列瀑布流，卡宽仍锁 360，列距 16。"
+        }
+      ],
+      "implementation": {
+        "summary": "只改画布，不改锁定卡内容。",
+        "steps": [
+          "去掉 overflow-x 横滑。",
+          "column-count 1 / 2 / 3。",
+          "break-inside: avoid，避免卡被劈开。"
+        ]
+      },
+      "constraints": [
+        "卡宽 360 不缩",
+        "间距 16",
+        "不改评级扫读"
+      ],
+      "checks": [
+        "桌面 3 列无横滑",
+        "768 为 2 列",
+        "375 为 1 列"
+      ],
+      "links": []
+    }
+  ]
+}

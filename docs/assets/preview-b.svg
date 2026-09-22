@@ -1,0 +1,12 @@
+<svg width="640" height="480" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="480" fill="#F6F7F9"/>
+  <rect x="40" y="40" width="560" height="64" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <rect x="64" y="64" width="140" height="16" rx="4" fill="#D1D5DB"/>
+  <rect x="40" y="124" width="260" height="316" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <rect x="340" y="124" width="260" height="316" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <rect x="64" y="148" width="212" height="12" rx="4" fill="#E5E7EB"/>
+  <rect x="64" y="176" width="180" height="12" rx="4" fill="#E5E7EB"/>
+  <rect x="364" y="148" width="212" height="12" rx="4" fill="#E5E7EB"/>
+  <rect x="364" y="176" width="160" height="12" rx="4" fill="#2563EB" fill-opacity="0.25"/>
+  <text x="320" y="430" fill="#6B7280" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" text-anchor="middle">Sample preview B</text>
+</svg>

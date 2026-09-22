@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="AUI Review：对比 ai-research-board 过往生图，并说明每次使用的生成方式。"
+    />
+    <title>AUI Review · 投研看板生图记录</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">AUI REVIEW</p>
+        <h1>投研看板生图记录</h1>
+        <p class="page-description">
+          本仓库从技术评级到六卡瀑布流的过往稿。勾选两条，看生成路径和版面差在哪。
+        </p>
+      </div>
+      <div class="archive-summary" aria-label="记录统计">
+        <strong id="record-count">—</strong>
+        <span>条记录</span>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="method-board" aria-labelledby="method-board-title">
+        <div class="section-heading">
+          <h2 id="method-board-title">生成方式</h2>
+          <p>先看路径差异，再点进具体结果做对比。</p>
+        </div>
+        <div class="method-grid" id="method-grid"></div>
+      </section>
+
+      <div class="toolbar">
+        <p id="archive-status" role="status" aria-live="polite">正在读取记录…</p>
+        <div class="toolbar-actions">
+          <p class="data-source">数据源：本地 JSON</p>
+          <button class="ghost-button" id="compare-button" type="button" disabled>
+            对比已选
+          </button>
+        </div>
+      </div>
+      <p class="compare-hint" id="compare-hint">最多选择 2 条记录进行并排对比。</p>
+
+      <section
+        class="generation-grid"
+        id="generation-grid"
+        aria-label="生成结果列表"
+        aria-busy="true"
+      >
+        <div class="loading-card" aria-hidden="true"></div>
+        <div class="loading-card" aria-hidden="true"></div>
+        <div class="loading-card" aria-hidden="true"></div>
+        <div class="loading-card" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <dialog class="result-dialog" id="result-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-shell">
+        <header class="dialog-header">
+          <div>
+            <p class="dialog-kicker" id="dialog-kicker"></p>
+            <h2 id="dialog-title"></h2>
+          </div>
+          <button class="icon-button" id="dialog-close" type="button" aria-label="关闭详情">
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M3.5 3.5l9 9m0-9l-9 9" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="dialog-body">
+          <section class="result-preview" aria-label="结果预览">
+            <img id="dialog-image" alt="" />
+            <div class="image-fallback" id="dialog-image-fallback" hidden>暂无可用预览</div>
+          </section>
+
+          <div class="result-details">
+            <dl class="metadata-list" id="dialog-metadata"></dl>
+
+            <section class="detail-section">
+              <h3>对话内容</h3>
+              <div class="conversation" id="dialog-conversation"></div>
+            </section>
+
+            <section class="detail-section">
+              <h3>生成方式说明</h3>
+              <div id="dialog-implementation"></div>
+            </section>
+
+            <section class="detail-section">
+              <h3>约束与自检</h3>
+              <div id="dialog-system"></div>
+            </section>
+
+            <div class="dialog-actions" id="dialog-actions"></div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="result-dialog compare-dialog" id="compare-dialog" aria-labelledby="compare-title">
+      <div class="dialog-shell">
+        <header class="dialog-header">
+          <div>
+            <p class="dialog-kicker">并排对比</p>
+            <h2 id="compare-title">生成方式对比</h2>
+          </div>
+          <button class="icon-button" id="compare-close" type="button" aria-label="关闭对比">
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M3.5 3.5l9 9m0-9l-9 9" />
+            </svg>
+          </button>
+        </header>
+        <div class="compare-body" id="compare-body"></div>
+      </div>
+    </dialog>
+
+    <template id="generation-card-template">
+      <article class="generation-card">
+        <div class="card-select">
+          <label>
+            <input class="compare-toggle" type="checkbox" />
+            <span>加入对比</span>
+          </label>
+        </div>
+        <button class="card-trigger" type="button">
+          <span class="card-index"></span>
+          <span class="preview-frame">
+            <img class="card-image" alt="" loading="lazy" />
+            <span class="preview-fallback" hidden>暂无预览</span>
+            <span class="status-badge"></span>
+          </span>
+          <span class="card-content">
+            <strong class="card-title"></strong>
+            <span class="card-meta">
+              <span class="card-time"></span>
+              <span class="method-badge"></span>
+            </span>
+          </span>
+        </button>
+      </article>
+    </template>
+  </body>
+</html>
