@@ -494,6 +494,24 @@ h1 {
   background: var(--bg-subtle);
 }
 
+.result-preview .image-zoom {
+  position: relative;
+}
+
+.zoom-hint {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  min-height: 22px;
+  padding: 0 8px;
+  border-radius: 2px;
+  background: rgba(17, 24, 39, 0.72);
+  color: #fff;
+  font-size: 11px;
+  line-height: 22px;
+  pointer-events: none;
+}
+
 .result-preview img,
 .compare-preview img {
   width: 100%;
@@ -505,27 +523,56 @@ h1 {
   transition: transform 160ms ease;
 }
 
-.lightbox {
-  width: 100vw;
+.result-dialog.is-zoomed {
+  width: calc(100dvw - 24px);
   max-width: none;
-  height: 100dvh;
+  height: calc(100dvh - 24px);
   max-height: none;
-  margin: 0;
+}
+
+.result-dialog.is-zoomed .dialog-body {
+  grid-template-columns: 1fr;
+}
+
+.result-dialog.is-zoomed .result-details {
+  display: none;
+}
+
+.result-dialog.is-zoomed .result-preview {
+  min-height: 0;
+  height: 100%;
+  align-content: center;
+  border-right: 0;
+}
+
+.result-dialog.is-zoomed .result-preview img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 120px);
+  cursor: zoom-out;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
   padding: 24px;
   overflow: auto;
-  border: 0;
   background: rgba(17, 24, 39, 0.92);
 }
 
-.lightbox::backdrop {
-  background: rgba(17, 24, 39, 0.88);
+.lightbox[hidden] {
+  display: none !important;
 }
 
 .lightbox-close {
   position: fixed;
   top: 16px;
   right: 16px;
-  z-index: 2;
+  z-index: 31;
   width: 36px;
   height: 36px;
   flex: 0 0 36px;

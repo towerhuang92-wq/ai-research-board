@@ -259,12 +259,16 @@ function openLightbox(src, alt, trigger) {
   lightboxSrc = src;
   lightboxImage.alt = alt;
   lightboxImage.src = src;
-  lightbox.showModal();
+  const host = trigger?.closest("dialog[open]") ?? document.body;
+  host.appendChild(lightbox);
+  lightbox.hidden = false;
   lightboxClose.focus();
 }
 
 function closeLightbox() {
-  lightbox.close();
+  if (lightbox.hidden) return;
+  lightbox.hidden = true;
+  document.body.appendChild(lightbox);
 }
 
 function renderComparePane(record) {
@@ -315,10 +319,17 @@ function closeCompare() {
 closeButton.addEventListener("click", closeDialog);
 compareClose.addEventListener("click", closeCompare);
 compareButton.addEventListener("click", openCompare);
-lightboxClose.addEventListener("click", closeLightbox);
-dialogImageZoom.addEventListener("click", () => {
-  if (!lightboxSrc && !dialogImage.src) return;
-  openLightbox(dialogImage.getAttribute("src"), dialogImage.alt, dialogImageZoom);
+function setDialogZoom(zoomed) {
+  dialog.classList.toggle("is-zoomed", zoomed);
+  dialogImageZoom.setAttribute("aria-label", zoomed ? "还原预览" : "点击放大");
+  const hint = dialogImageZoom.querySelector(".zoom-hint");
+  if (hint) hint.textContent = zoomed ? "点击还原" : "点击放大";
+}
+
+dialogImageZoom.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  setDialogZoom(!dialog.classList.contains("is-zoomed"));
 });
 
 dialog.addEventListener("click", (event) => {
@@ -335,9 +346,10 @@ lightbox.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
-  if (lightbox.open) {
+  if (!lightbox.hidden) {
     event.preventDefault();
     closeLightbox();
+    lastLightboxTrigger?.focus();
     return;
   }
   if (compareDialog.open) {
@@ -352,10 +364,18 @@ document.addEventListener("keydown", (event) => {
 });
 
 dialog.addEventListener("close", () => {
+  setDialogZoom(false);
+  closeLightbox();
   lastTrigger?.focus();
 });
 
-lightbox.addEventListener("close", () => {
+compareDialog.addEventListener("close", () => {
+  closeLightbox();
+});
+
+lightboxClose.addEventListener("click", (event) => {
+  event.stopPropagation();
+  closeLightbox();
   lastLightboxTrigger?.focus();
 });
 

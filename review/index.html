@@ -77,6 +77,7 @@
           <section class="result-preview" aria-label="结果预览">
             <button class="image-zoom" id="dialog-image-zoom" type="button">
               <img id="dialog-image" alt="" />
+              <span class="zoom-hint">点击放大</span>
             </button>
             <div class="image-fallback" id="dialog-image-fallback" hidden>暂无可用预览</div>
           </section>
@@ -105,14 +106,14 @@
       </div>
     </dialog>
 
-    <dialog class="lightbox" id="lightbox" aria-label="放大预览">
+    <div class="lightbox" id="lightbox" hidden>
       <button class="icon-button lightbox-close" id="lightbox-close" type="button" aria-label="关闭放大预览">
         <svg viewBox="0 0 16 16" aria-hidden="true">
           <path d="M3.5 3.5l9 9m0-9l-9 9" />
         </svg>
       </button>
       <img id="lightbox-image" alt="" />
-    </dialog>
+    </div>
 
     <dialog class="result-dialog compare-dialog" id="compare-dialog" aria-labelledby="compare-title">
       <div class="dialog-shell">
