@@ -1,0 +1,71 @@
+@import "./App.css";
+
+:root {
+  --shell-w: 1440px;
+  --shell-h: 900px;
+  --rail: 48px;
+  --titlebar: 44px;
+  --statusbar: 32px;
+  --ask: 320px;
+  --color-bg: #f9f9fa;
+  --color-surface: #ffffff;
+  --color-rail: #eff2f6;
+  --color-ink: #171718;
+  --color-mute: #646466;
+  --color-faint: #98989a;
+  --color-line: #e5e5e6;
+  --color-up: #00a870;
+  --color-down: #f03a55;
+  --color-accent: #f36f12;
+  --color-accent-weak: rgb(243 111 18 / 15%);
+  --color-search: #cad2e040;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --radius-pill: 100px;
+  --radius-control: 4px;
+  --radius-tile: 0;
+  --radius-pop: 8px;
+  --text-11: 11px;
+  --text-12: 12px;
+  --text-13: 13px;
+  --text-14: 14px;
+  --text-18: 18px;
+  --leading-14: 14px;
+  --leading-16: 16px;
+  --leading-18: 18px;
+  --leading-20: 20px;
+  --leading-24: 24px;
+  --font-ui: "BR Hendrix", "PingFang SC", sans-serif;
+  --z-canvas: 0;
+  --z-bar: 1;
+  --z-pop: 4;
+  --z-chrome: 5;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: var(--text-12);
+  line-height: var(--leading-16);
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+
+button,
+input {
+  font: inherit;
+}
